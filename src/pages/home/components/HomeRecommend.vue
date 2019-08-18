@@ -4,23 +4,22 @@
       <span>汽车推荐</span>
     </div>
     <div class="recommend-wrap">
-      <router-link class="recommend-item"
-                   v-for="(item,index) in HomeRecommend"
-                   :key="index"
-                   tag="div"
-                   :to="'/detail/'+item.id">
+      <router-link
+        class="recommend-item"
+        v-for="(item,index) in HomeRecommend"
+        :key="index"
+        tag="div"
+        :to="'/detail/'+item.pid"
+      >
         <div class="car-img">
-          <img :src="item.imgUrl">
+          <img :src="item.imgUrl" />
         </div>
         <div class="car-detail">
-          <p class="car-title">
-            {{item.title}}
-          </p>
-          <p class="car-desc">
-            {{item.desc}}
-          </p>
+          <p class="car-title">{{item.title}}</p>
+          <p class="car-desc">{{item.desc}}</p>
           <p class="count">
-            已租用<span>{{item.count}}</span>人
+            已租用
+            <span>{{item.count}}</span>人
           </p>
           <p class="car-price">
             <span class="price">{{item.price}}</span>
@@ -40,22 +39,8 @@ export default {
       default: []
     }
   },
-  data () {
-    return {
-
-    };
-  },
-  computed: {
-
-  },
-  watch: {
-
-  },
-  methods: {
-
-  },
-  components: {
-
+  data() {
+    return {};
   }
 };
 </script>

@@ -1,18 +1,15 @@
-import axios from "./http";
+import axios from './http';
 // import axios from 'axios';
-import {HOST} from 'common/js/config'
+import { HOST } from 'common/js/config'
 export function getHomeBanner() {
-  const url = HOST+"/banner"
+  const url = HOST + '/banner'
   return axios.get(url);
 }
 export function getHomeNav() {
-  const url = HOST+"/nav"
+  const url = HOST + '/nav'
   return axios.get(url);
 }
 export function getHomeRecommend() {
-  const url = HOST+"/recommendcar"
+  const url = HOST + '/recommendcar'
   return axios.get(url);
 }
-
-
-

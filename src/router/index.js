@@ -35,7 +35,8 @@ export default new Router({
     meta: {
       // eslint-disable-next-line indent
       keepAlive: true,
-      require: true
+      require: true,
+      isBack: false
     }
   },
   {
