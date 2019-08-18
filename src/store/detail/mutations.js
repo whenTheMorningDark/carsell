@@ -1,5 +1,5 @@
 import { getDetail, setLocalDetail } from './mutations-type';
-import Vue from "vue";
+import Vue from 'vue';
 // console.log(getDetail);
 const mutations = {
   [getDetail](state, detail) {
