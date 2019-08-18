@@ -46,7 +46,9 @@ export default {
   props: {
     data: {
       type: Object,
-      default: {}
+      default: () => {
+        return {};
+      }
     }
   },
   data() {

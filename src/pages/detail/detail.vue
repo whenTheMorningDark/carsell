@@ -1,14 +1,20 @@
 <template>
   <div class="detail">
     <c-header></c-header>
-    <scroll class="scroll-wrap" ref="wrap" :data="HomeBanner" @scrollEnd="scrollEnd" :probeType="2">
+    <scroll
+      class="scroll-wrap"
+      ref="wrap"
+      :data="detail.HomeBanner"
+      @scrollEnd="scrollEnd"
+      :probeType="2"
+    >
       <div>
-        <slider v-if="HomeBanner.length>0" :sliderData="HomeBanner"></slider>
-        <detaildesc :data="detaildescData"></detaildesc>
+        <slider v-if="HomeBanner.length>0" :sliderData="detail.HomeBanner"></slider>
+        <detaildesc :data="detail.detaildescData"></detaildesc>
         <!-- 车友评价 -->
-        <carrate :data="carRate" v-if="carRate.rate_avatarname"></carrate>
+        <carrate :data="detail.carRate" v-if="carRate.rate_avatarname"></carrate>
         <!-- 车主留言 -->
-        <carrate :data="carMessage" v-if="carRate.rate_avatarname"></carrate>
+        <carrate :data="detail.carMessage" v-if="carRate.rate_avatarname"></carrate>
         <carmessage></carmessage>
         <div class="bottomBtn">
           <carButton bgcolor="darkyellow" title="联系客服" @click="tel"></carButton>
@@ -28,6 +34,7 @@ import carButton from "./components/carButton";
 import Slider from "base/slider/slider";
 import Scroll from "base/scroll/Scroll";
 import { getHomeBanner, getHomeNav, getHomeRecommend } from "api/home";
+import { mapMutations, mapGetters } from "vuex";
 import { getDetail } from "api/detail";
 export default {
   data() {
@@ -51,9 +58,12 @@ export default {
         tManAvatar: false
       },
       cacheId: []
+      // firstLoad: true
     };
   },
-
+  computed: {
+    ...mapGetters("detail", ["detail", "localDetail"])
+  },
   components: {
     cHeader,
     Slider,
@@ -63,13 +73,18 @@ export default {
     carmessage,
     carButton
   },
-  created() {
-    const id = this.$route.params.id;
-    this._getDetail(id);
-  },
+  // created() {
+  //   this.firstLoad = false;
+  //   const id = this.$route.params.id;
+  //   console.log(id);
+  //   let filterData = this.localDetail.filter(v => {
+  //     return v.id === id;
+  //   });
+  //   console.log(filterData);
+  //   this._getDetail(id);
+  // },
   methods: {
     _getDetail(id) {
-      // this.HomeBanner = [];
       getDetail(id).then(res => {
         if (res.status === 200) {
           if (res.data.errno === 0) {
@@ -90,7 +105,6 @@ export default {
               rate_time
             } = res.data.data;
             this.HomeBanner = banner;
-            // console.log(this.HomeBanner);
             this.detaildescData = {
               product_name,
               product_attr,
@@ -110,44 +124,44 @@ export default {
             this.carMessage = Object.assign(this.carMessage, {
               rate_desc: message
             });
+            this.firstLoad = true;
+            let detail = {
+              id: id,
+              HomeBanner: this.HomeBanner,
+              detaildescData: this.detaildescData,
+              carRate: this.carRate
+            };
+            this.setLocalDetail(detail);
           }
         }
       });
     },
+    ...mapMutations("detail", ["setLocalDetail"]),
     tel() {
       console.log("tel");
     },
     scrollEnd() {}
   },
-  beforeRouteEnter(to, from, next) {
-    if (to.path.includes("/detail")) {
-      next(vm => {
-        if (vm.cacheId.length === 0) {
-          vm.cacheId.push(to.params.id * 1);
-        } else {
-          let newCacheId = vm.cacheId.filter(v => {
-            return v === to.params.id * 1;
-          });
-          if (newCacheId.length > 0) {
-            return;
-          }
-          vm.cacheId.push(to.params.id * 1);
-        }
-      });
-    }
-  },
   activated() {
     const id = this.$route.params.id;
-    if (!id) {
-      return;
+    if (this.localDetail.length === 0) {
+      // 说明没有缓存数据，发起请求
+      if (!id) {
+        return;
+      }
+      this._getDetail(id);
+    } else {
+      // 有缓存的数据，这个数组可能有也可能没有缓存数组
+      let isHaveId = this.localDetail.some(v => {
+        return v.id * 1 === id * 1;
+      });
+      if (isHaveId) {
+        let haveIndex = this.localDetail.findIndex(v => v.id * 1 === id * 1);
+        this.setLocalDetail(this.localDetail[haveIndex]);
+      } else {
+        this._getDetail(id);
+      }
     }
-    let loadId = this.cacheId.filter(v => {
-      return v === id * 1;
-    });
-    if (loadId.length > 0) {
-      return;
-    }
-    this._getDetail(id);
   }
 };
 </script>

@@ -48,7 +48,8 @@ export default {
     this._getHomeRecommend();
   },
   computed: {
-    ...mapGetters("scroll", ["scrollTop"])
+    ...mapGetters("scroll", ["scrollTop"]),
+    ...mapGetters("detail", ["detail"])
   },
   watch: {},
   methods: {
@@ -72,10 +73,6 @@ export default {
     scrollEnd(pos) {
       this.top = pos.y;
     },
-    // ...mapMutations(
-    //   // eslint-disable-next-line camelcase
-    //   { set_scroll_top: "SET_SCROLL_TOP" }
-    // )
     ...mapMutations("scroll", { set_scroll_top: "SET_SCROLL_TOP" })
   },
   activated() {
@@ -88,9 +85,6 @@ export default {
     // 离开的时候存储scroll_top到vuex中
     this.set_scroll_top(this.top);
     next();
-  },
-  mounted() {
-    // console.log(1);
   },
   components: {
     HomeHeader,
