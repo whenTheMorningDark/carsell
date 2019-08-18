@@ -48,7 +48,7 @@ export default {
     this._getHomeRecommend();
   },
   computed: {
-    ...mapGetters(["scrollTop"])
+    ...mapGetters("scroll", ["scrollTop"])
   },
   watch: {},
   methods: {
@@ -72,10 +72,11 @@ export default {
     scrollEnd(pos) {
       this.top = pos.y;
     },
-    ...mapMutations(
-      // eslint-disable-next-line camelcase
-      { set_scroll_top: "SET_SCROLL_TOP" }
-    )
+    // ...mapMutations(
+    //   // eslint-disable-next-line camelcase
+    //   { set_scroll_top: "SET_SCROLL_TOP" }
+    // )
+    ...mapMutations("scroll", { set_scroll_top: "SET_SCROLL_TOP" })
   },
   activated() {
     this.$nextTick(() => {
