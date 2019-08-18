@@ -11,7 +11,8 @@
         <carrate :data="carMessage" v-if="carRate.rate_avatarname"></carrate>
         <carmessage></carmessage>
         <div class="bottomBtn">
-          <carButton></carButton>
+          <carButton bgcolor="darkyellow" title="联系客服" @click="tel"></carButton>
+          <carButton bgcolor="darkorange" title="立即租用"></carButton>
         </div>
       </div>
     </scroll>
@@ -113,6 +114,9 @@ export default {
         }
       });
     },
+    tel() {
+      console.log("tel");
+    },
     scrollEnd() {}
   },
   beforeRouteEnter(to, from, next) {
@@ -152,6 +156,7 @@ export default {
 .detail {
   height: 100%;
   overflow: hidden;
+  padding-bottom: 0.6rem;
   .scroll-wrap {
     width: 100%;
     height: 100%;

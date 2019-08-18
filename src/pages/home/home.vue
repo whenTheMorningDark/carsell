@@ -15,9 +15,10 @@
         <home-recommend v-if="this.HomeRecommend.length>0" :HomeRecommend="HomeRecommend"></home-recommend>
       </div>
     </scroll>
-    <loading
+    <!-- <loading
       v-if="this.HomeRecommend.length===0 || this.HomeBanner.length === 0  || this.HomeNav.length === 0"
-    ></loading>
+    ></loading>-->
+    <!-- <loading></loading> -->
   </div>
 </template>
 
@@ -28,8 +29,9 @@ import HomeRecommend from "./components/HomeRecommend";
 import Slider from "base/slider/slider";
 import Scroll from "base/scroll/Scroll";
 import { getHomeBanner, getHomeNav, getHomeRecommend } from "api/home";
-import Loading from "base/loading";
+// import Loading from "base/loading/index";
 import { mapMutations, mapGetters } from "vuex";
+import { calcBottom } from "mixins/mixins";
 export default {
   data() {
     return {
@@ -39,6 +41,7 @@ export default {
       top: 0
     };
   },
+  mixins: [calcBottom],
   created() {
     this._getHomeBanner();
     this._getHomeNav();
@@ -93,8 +96,7 @@ export default {
     Slider,
     HomeNav,
     HomeRecommend,
-    Scroll,
-    Loading
+    Scroll
   }
 };
 </script>
@@ -104,6 +106,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  padding-bottom: 0.98rem;
   .scroll-wrap {
     width: 100%;
     height: 100%;

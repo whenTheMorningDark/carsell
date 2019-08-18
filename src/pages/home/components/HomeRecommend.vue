@@ -49,6 +49,7 @@ export default {
 .homeRecommend {
   background: #fcfcfc;
   margin-top: 0.2rem;
+  // position: absolute;
   .recommend-title {
     height: 0.82rem;
     line-height: 0.82rem;

@@ -47,7 +47,8 @@ module.exports = {
       'api': resolve('src/api'),
       'common': resolve('src/common'),
       'base': resolve('src/base'),
-      'pages': resolve('src/pages')
+      'pages': resolve('src/pages'),
+      'mixins': resolve('src/mixins')
     }
   },
   module: {

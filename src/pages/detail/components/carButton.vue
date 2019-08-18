@@ -1,8 +1,9 @@
 <template>
-  <div class="bottomBtn">
-    <button class="carBtn btn-darkyellow" @click="btnClick">联系客服</button>
-    <button class="carBtn btn-darkorange" @click="btnClick">立即租用</button>
-  </div>
+  <button
+    class="carBtn"
+    :class="[bgcolor === 'default' ? 'btn-default' : `btn-${bgcolor}`]"
+    @click="btnClick"
+  >{{title}}</button>
 </template>
 
 <script>
@@ -10,10 +11,21 @@ export default {
   data() {
     return {};
   },
-  computed: {},
-  watch: {},
-  methods: {},
-  components: {}
+  props: {
+    bgcolor: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    }
+  },
+  methods: {
+    btnClick() {
+      this.$emit("click");
+    }
+  }
 };
 </script>
 
@@ -24,6 +36,9 @@ export default {
   color: #fff;
   border: none;
   font-size: 0.34rem;
+  &.btn-default {
+    background: #ddd;
+  }
   &.btn-darkyellow {
     background: #d9b765;
   }

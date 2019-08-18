@@ -5,6 +5,8 @@ import App from './App';
 import router from './router';
 import 'common/js/rem.js'; // 引入适配移动端js
 import 'common/style/index.scss';
+import loading from 'base/loading/src';
+Vue.use(loading);
 import KaIcon from './index';
 Vue.use(KaIcon);
 import store from './store';
