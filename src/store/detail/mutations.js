@@ -7,7 +7,7 @@ const mutations = {
     state.detail = detail;
   },
   [setLocalDetail](state, detail) {
-    localStorage.setItem('localDetail', detail);
+
     Vue.set(state.detail, 'HomeBanner', detail.HomeBanner);
     Vue.set(state.detail, 'detaildescData', detail.detaildescData);
     Vue.set(state.detail, 'carRate', detail.carRate);
@@ -19,7 +19,8 @@ const mutations = {
       return;
     }
     state.localDetail.push(detail); // 缓存到本地的数组
-
+    // console.log(state.localDetail);
+    localStorage.setItem('localDetail', state.localDetail);
   }
 }
 export default mutations;

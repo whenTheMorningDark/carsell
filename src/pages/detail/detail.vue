@@ -144,6 +144,7 @@ export default {
   },
   activated() {
     const id = this.$route.params.id;
+    // console.log(this.localDetail);
     if (this.localDetail.length === 0) {
       // 说明没有缓存数据，发起请求
       if (!id) {
