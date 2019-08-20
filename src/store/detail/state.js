@@ -1,5 +1,5 @@
 const state = {
   detail: {},
-  localDetail: localStorage.getItem('localDetail') || []
+  localDetail: JSON.parse(localStorage.getItem('localDetail')) || []
 }
 export default state;

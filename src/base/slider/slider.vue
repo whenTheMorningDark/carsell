@@ -63,6 +63,9 @@ export default {
        * 3.sliderGroup的总宽度等于slider-item的总和，即是slider-item.width+=
        *
        */
+      if (!this.$refs.sliderGroup) {
+        return;
+      }
       this.children = this.$refs.sliderGroup.children;
       let width = 0;
       let sliderWidth = this.$refs.slider.clientWidth;

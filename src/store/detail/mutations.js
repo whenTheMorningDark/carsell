@@ -12,6 +12,8 @@ const mutations = {
     Vue.set(state.detail, 'detaildescData', detail.detaildescData);
     Vue.set(state.detail, 'carRate', detail.carRate);
     Vue.set(state.detail, 'carMessage', detail.carMessage);
+    // console.log(state.detail);
+    // console.log(state.detail);
     let filterData = state.localDetail.filter((v) => {
       return v.id === detail.id
     })
@@ -19,8 +21,7 @@ const mutations = {
       return;
     }
     state.localDetail.push(detail); // 缓存到本地的数组
-    // console.log(state.localDetail);
-    localStorage.setItem('localDetail', state.localDetail);
+    localStorage.setItem('localDetail', JSON.stringify(state.localDetail));
   }
 }
 export default mutations;

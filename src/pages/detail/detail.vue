@@ -9,12 +9,12 @@
       :probeType="2"
     >
       <div>
-        <slider v-if="HomeBanner.length>0" :sliderData="detail.HomeBanner"></slider>
+        <slider :sliderData="detail.HomeBanner"></slider>
         <detaildesc :data="detail.detaildescData"></detaildesc>
         <!-- 车友评价 -->
-        <carrate :data="detail.carRate" v-if="carRate.rate_avatarname"></carrate>
+        <carrate :data="detail.carRate"></carrate>
         <!-- 车主留言 -->
-        <carrate :data="detail.carMessage" v-if="carRate.rate_avatarname"></carrate>
+        <carrate :data="detail.carMessage"></carrate>
         <carmessage></carmessage>
         <div class="bottomBtn">
           <carButton bgcolor="darkyellow" title="联系客服" @click="tel"></carButton>
@@ -124,13 +124,14 @@ export default {
             this.carMessage = Object.assign(this.carMessage, {
               rate_desc: message
             });
-            this.firstLoad = true;
             let detail = {
               id: id,
               HomeBanner: this.HomeBanner,
               detaildescData: this.detaildescData,
-              carRate: this.carRate
+              carRate: this.carRate,
+              carMessage: this.carMessage
             };
+            console.log(detail);
             this.setLocalDetail(detail);
           }
         }
@@ -144,7 +145,7 @@ export default {
   },
   activated() {
     const id = this.$route.params.id;
-    // console.log(this.localDetail);
+    // console.log(this.localDetail[0]);
     if (this.localDetail.length === 0) {
       // 说明没有缓存数据，发起请求
       if (!id) {
@@ -156,7 +157,9 @@ export default {
       let isHaveId = this.localDetail.some(v => {
         return v.id * 1 === id * 1;
       });
+      console.log(isHaveId);
       if (isHaveId) {
+        console.log(this.localDetail);
         let haveIndex = this.localDetail.findIndex(v => v.id * 1 === id * 1);
         this.setLocalDetail(this.localDetail[haveIndex]);
       } else {
